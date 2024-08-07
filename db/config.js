@@ -1,15 +1,14 @@
+// db/config.js
 const mysql2 = require("mysql2");
+require("dotenv").config(); // Load environment variables from .env file
 
 const dbConnection = mysql2.createPool({
-	host: "sql5.freesqldatabase.com",
-	user: "sql5724579",
-	password: "1jbuQBSPUb",
-	database: "sql5724579",
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	database: process.env.DB_NAME,
+	port: process.env.DB_PORT || 3306, // Default to 3306 if not specified
 	connectionLimit: 10,
 });
-// dbConnection.execute("select 'test' ", (err, result) => {
-// 	if (err) throw err.message;
-// 	console.log(result);
-// });
 
 module.exports = dbConnection.promise();
